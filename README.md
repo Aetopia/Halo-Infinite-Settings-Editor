@@ -24,6 +24,7 @@
         ![HaloInfSetEditDialog](images/HaloInfSetEditDialog.png)
         You can enter the following data types:
         | Value | How to enter? |
+        |-|-|
         |String|Enter a alphanumeric expression.|
         |Integer|Enter a numeric expression.|
         |Null|Enter a blank value.|
