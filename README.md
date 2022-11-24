@@ -23,9 +23,10 @@
 
         ![HaloInfSetEditDialog](images/HaloInfSetEditDialog.png)
         You can enter the following data types:
-        1. `String`
-        2. `Integer`
-        3. `Null`: To put in a `Null` value, simply leave the leave the textbox empty and hit `[Ok]`.
+        | Value | How to enter? |
+        |String|Enter a alphanumeric expression.|
+        |Integer|Enter a numeric expression.|
+        |Null|Enter a blank value.|
     
     - To search for a key, click on `[🔎]` and enter your query.
 
