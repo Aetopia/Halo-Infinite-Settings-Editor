@@ -1,5 +1,5 @@
 # Halo Infinite Settings Editor
- A tool to edit & view Halo Infinite's settings file (SpecControlSettings.json).
+ A tool to edit & view Halo Infinite's settings file (`SpecControlSettings.json`).
 
 # How to use?
 1. Fetch the latest release from [GitHub Releases](https://github.com/Aetopia/Halo-Infinite-Settings-Editor/releases).
