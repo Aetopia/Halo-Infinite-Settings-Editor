@@ -13,7 +13,7 @@
     | Button | Operation |
     |--------|------------|
     | `✍️` | Save the current settings.|
-    | `↻` | Reload settings from `SpecControlSettings.json` |
+    | `↻` | Reload settings from `SpecControlSettings.json`. |
     | `🔎` | Search for a key.|
     | `📄` | Open the `SpecControlSettings.json` file in a text editor. |
     | `?` | Information on Halo Infinite Settings Editor. |
