@@ -10,11 +10,13 @@
     ![HaloInfSetEdit](images/HaloInfSetEdit.png)
 
 5. The toolbar has the following operations:
-    1. `[✍️]`: Save the current settings.
-    2. `[↻]`: Reload settings from `SpecControlSettings.json`
-    3. `[🔎]`: Search for a key.
-    4. `[📄]`: Open the `SpecControlSettings.json` file in a text editor.
-    5. `[?]`: Information on Halo Infinite Settings Editor.
+    | Button | Operation |
+    |--------|------------|
+    | `✍️` | Save the current settings.|
+    | `↻` | Reload settings from `SpecControlSettings.json` |
+    | `🔎` | Search for a key.|
+    | `📄` | Open the `SpecControlSettings.json` file in a text editor. |
+    | `?` | Information on Halo Infinite Settings Editor. |
 
 6. Operations:
     - To edit a value, double click value you want to edit to open up the `Edit Dialog Box`.
