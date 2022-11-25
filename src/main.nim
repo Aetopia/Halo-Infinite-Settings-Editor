@@ -35,7 +35,7 @@ proc getSettings(file: string): seq[(string, string)] =
         settings.add((k, v))
     return settings
 
-proc loadList(list: wListCtrl, settings: seq[(string, string)]) =
+proc loadSettings(list: wListCtrl, settings: seq[(string, string)]) =
     # Load Key ~ Value pairs into the ListCtrl.
 
     list.deleteAllItems()
@@ -45,7 +45,6 @@ proc loadList(list: wListCtrl, settings: seq[(string, string)]) =
 
 proc saveSettings(list: wListCtrl, file: string) = 
     # Save the current settings into "SpecControlSettings.json".
-
 
     var cfg = parseFile(file)
     for i in 0..list.getItemCount()-1:
@@ -63,16 +62,21 @@ proc searchSettings(list: wListCtrl, query: string): seq[int] =
 
     if query == "": return @[]
 
-    var results: seq[int]
+    var 
+        results: seq[int]
+        scroll = true
     let keys = 0..list.getItemCount()-1
     for i in keys:
         for j in [0, 1]:
-            for j in [wListStateFocused, wListStateSelected, wListStateDropHighlighted, wListStateCut, 0x00000003]:
-                list.setItemState(i, j, wListStateDropHighlighted, false)
+            for k in [wListStateFocused, wListStateSelected, wListStateDropHighlighted, wListStateCut, 0x00000003]:
+                list.setItemState(i, j, k, false)
 
     for i in keys:
         let v = list.getItemText(i, 0)
         if v.contains(query.strip()): 
+            if scroll:
+                list.scrollList(0, list.getItemPosition(i)[1])
+                scroll = false
             for j in [0, 1]:
                 list.setItemState(i, j, wListStateDropHighlighted)
             results.add(i)
@@ -92,7 +96,7 @@ if isMainModule:
 
     let 
         app = App()
-        frame = Frame(title="Halo Infinite Settings Editor", style=wSystemMenu or wMinimizeBox or wCaption, size=(800, 600))
+        frame = Frame(title="Halo Infinite Settings Editor", style=wSystemMenu, size=(800, 600))
         panel = frame.Panel()
         save = panel.Button(label="✍️ Save", size=(60, 23))
         reload = panel.Button(label="↻ Reload", pos=(60, 0), size=(60, 23))
@@ -116,7 +120,7 @@ if isMainModule:
         results = clearSearchResults(list, results)
         let 
             i = event.getIndex()
-            dialog = list.TextEntryDialog(caption="✎ Edit", message=list.getItemText(i, 0), value=list.getItemText(i, 1).strip())
+            dialog = list.TextEntryDialog(caption="✎ Edit", message=list.getItemText(i, 0), value=list.getItemText(i, 1).strip(), style=wModalFrame)
         var v: string
 
         if dialog.showModal() == wIdOk: 
@@ -134,20 +138,17 @@ if isMainModule:
         if results != @[]:
             results = clearSearchResults(list, results)
         saveSettings(list, file)
-        frame.MessageDialog("Settings saved!", "✍️ Save", wOk or wIconInformation).display()
+        frame.MessageDialog("Settings Saved!", "✍️ Save", wOk or wIconInformation).display()
         list.setFocus()
 
     reload.wEvent_Button do ():
         if results != @[]:
             results = clearSearchResults(list, results)
-        loadList(list, getSettings(file))
+        loadSettings(list, getSettings(file))
         list.setFocus()
 
     search.wEvent_Button do ():
-        results = searchSettings(list, search.TextEntryDialog(caption="🔎 Search", message="").display())
-        if results != @[]:
-            for i in [0, 1]:
-                list.setItemState(selected, i, 0x00000003, false)
+        results = searchSettings(list, search.TextEntryDialog(caption="🔎 Search", message="", style=wModalFrame).display())
         list.setFocus()
 
     open.wEvent_Button do ():
@@ -161,13 +162,13 @@ if isMainModule:
             results = clearSearchResults(list, results)
         ShellExecute(0, "open", "https://github.com/Aetopia/Halo-Infinite-Settings-Editor", nil, nil, 0)
         list.setFocus()
-        
+
     about.wEvent_Button do ():
         if results != @[]:
             results = clearSearchResults(list, results)
         panel.MessageDialog("Created by Aetopia\nhttps://github.com/Aetopia/Halo-Infinite-Settings-Editor", "About", wOk or wIconInformation).display
         list.setFocus()
-
+    
     reload.click()
     panel.Button(size=(-1, -1), pos=(-1, -1)).setFocus()
     frame.center()

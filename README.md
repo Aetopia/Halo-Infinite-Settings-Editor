@@ -30,7 +30,7 @@
         |Integer|Enter a numeric expression.|
         |Null|Enter a blank value.|
     
-    - To search for a key, click on `🔎` and enter your query.
+    - To search for a key, click on `🔎 Search` and enter your query.
 
         ![HaloInfSetSearchDialog](images/HaloInfSetSearchDialog.png)
 
