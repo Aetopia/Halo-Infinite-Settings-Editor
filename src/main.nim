@@ -166,7 +166,7 @@ if isMainModule:
     about.wEvent_Button do ():
         if results != @[]:
             results = clearSearchResults(list, results)
-        panel.MessageDialog("Created by Aetopia\nhttps://github.com/Aetopia/Halo-Infinite-Settings-Editor", "About", wOk or wIconInformation).display
+        panel.MessageDialog("Created by Aetopia\nhttps://github.com/Aetopia/Halo-Infinite-Settings-Editor", "About", wOk or wIconInformation).display()
         list.setFocus()
     
     reload.click()
