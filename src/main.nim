@@ -85,6 +85,8 @@ proc searchSettings(list: wListCtrl, query: string): seq[int] =
 proc clearSearchResults(list: wListCtrl, results: seq[int]): seq[int] = 
     # Clear search results.
     
+    if results == @[]:
+        return @[]
     for i in results:  
         for j in [0, 1]:
             list.setItemState(i, j, wListStateDropHighlighted, false) 
@@ -129,21 +131,18 @@ if isMainModule:
             list.setItem(i, 1, v)
 
     list.wEvent_ListItemSelected do (event: wEvent): 
-        if results != @[]:
-            results = clearSearchResults(list, results)
+        results = clearSearchResults(list, results)
         selected = event.getIndex()
             
 
     save.wEvent_Button do ():
-        if results != @[]:
-            results = clearSearchResults(list, results)
+        results = clearSearchResults(list, results)
         saveSettings(list, file)
         frame.MessageDialog("Settings Saved!", "✍️ Save", wOk or wIconInformation).display()
         list.setFocus()
 
     reload.wEvent_Button do ():
-        if results != @[]:
-            results = clearSearchResults(list, results)
+        results = clearSearchResults(list, results)
         loadSettings(list, getSettings(file))
         list.setFocus()
 
@@ -151,21 +150,18 @@ if isMainModule:
         results = searchSettings(list, search.TextEntryDialog(caption="🔎 Search", message="", style=wModalFrame).display())
         list.setFocus()
 
-    open.wEvent_Button do ():
-        if results != @[]:    
-            results = clearSearchResults(list, results)
+    open.wEvent_Button do ():   
+        results = clearSearchResults(list, results)
         ShellExecute(0, "open", file, nil, nil, 0)
         list.setFocus()
     
     repo.wEvent_Button do ():
-        if results != @[]:
-            results = clearSearchResults(list, results)
+        results = clearSearchResults(list, results)
         ShellExecute(0, "open", "https://github.com/Aetopia/Halo-Infinite-Settings-Editor", nil, nil, 0)
         list.setFocus()
 
     about.wEvent_Button do ():
-        if results != @[]:
-            results = clearSearchResults(list, results)
+        results = clearSearchResults(list, results)
         panel.MessageDialog("Created by Aetopia\nhttps://github.com/Aetopia/Halo-Infinite-Settings-Editor", "About", wOk or wIconInformation).display()
         list.setFocus()
     

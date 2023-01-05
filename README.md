@@ -52,5 +52,5 @@
         ```
     - **Optional:** Compress using UPX!
         ```
-        upx -9 "Halo-Infinite-Settings-Editor.exe"
+        upx --best "Halo-Infinite-Settings-Editor.exe"
         ```
