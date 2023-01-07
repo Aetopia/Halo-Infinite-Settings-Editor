@@ -100,7 +100,7 @@ if isMainModule:
     # GUI and Main function of the program.
 
     let
-        app = App()
+        app = App(wSystemDpiAware)
         frame = Frame(title = "Halo Infinite Settings Editor",
                 style = wSystemMenu, size = (800, 600))
         panel = frame.Panel()
